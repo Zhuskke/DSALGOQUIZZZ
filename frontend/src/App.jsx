@@ -9,8 +9,9 @@ import RegisterScreen from "./screens/RegisterScreen";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProfileScreen from "./screens/ProfileScreen";
-import VerificationScreen from "./screens/VerificationScreen"
+import VerificationScreen from "./screens/VerificationScreen";
 import RequestChangepass from "./screens/RequestChangepass";
+import ConfirmChangepass from "./screens/ConfirmChangepass";
 
 function App() {
   return (

@@ -39,10 +39,14 @@ def generate_otp():
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def get_user(request):
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        # Handle POST request logic here if needed
+        return Response({'message': 'POST request received'})
 
 
 @api_view(['POST'])
@@ -165,3 +169,5 @@ class UserPasswordResetView(APIView):
         if serializer.is_valid(raise_exception=True):
             return Response({'msg':"Password Reset Succesfully"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
