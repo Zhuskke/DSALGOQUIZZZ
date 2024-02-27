@@ -1,13 +1,17 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
+import { userLoginReducer, userRegisterReducer, userSendChangepasswordReducer, userConfirmChangepasswordReducer, userVerifyOTPReducer } from './reducers/userReducers';
 
 
 const reducer = combineReducers({
     // Add your reducers here
     userLogin: userLoginReducer,
-    userRegister: userRegisterReducer
+    userRegister: userRegisterReducer,
+    usersendChangepassword: userSendChangepasswordReducer,
+    userConfirmChangepassword: userConfirmChangepasswordReducer,
+    userVerifyOTP: userVerifyOTPReducer,
+    // userResendOtp, userResendOtpReducer,
 });
 
 

@@ -7,6 +7,7 @@ urlpatterns = [
     path('register/', registerUser, name='register'),
     path('verify-otp/', verifyOTP, name='verify_otp'),  
     path('resend-otp/', resendOTP, name='resend_otp'), 
-    path('forgot-password/', forgot_password, name='forgot_password'),
-    path('verify-otp_pass/', verify_otp_pass, name='verify_otp_pass'),
+    path('changepassword/', UserChangePasswordView.as_view(), name='changepassword'),
+    path('send-reset-password-email/', SendPasswordResetEmailView.as_view(), name='send-reset-password-email'),
+    path('reset-password/<uid>/<token>', UserPasswordResetView.as_view(), name='reset-password'),
 ]

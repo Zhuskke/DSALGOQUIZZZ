@@ -10,7 +10,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProfileScreen from "./screens/ProfileScreen";
 import VerificationScreen from "./screens/VerificationScreen"
-import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import RequestChangepass from "./screens/RequestChangepass";
 
 function App() {
   return (
@@ -22,7 +22,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomeScreen />} exact/>
               <Route path='login/' element={<LoginScreen />} />
-              <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
+              <Route path='request-changepass/' element={<RequestChangepass />} />
+              <Route path='confirm-changepass/:uid/:token/' element={<ConfirmChangepass />} />
               <Route path='register/' element={<RegisterScreen />} />
               <Route path="verify-otp/:userId/" element={<VerificationScreen />} />
               <Route path='profile/' element={<ProfileScreen />} />

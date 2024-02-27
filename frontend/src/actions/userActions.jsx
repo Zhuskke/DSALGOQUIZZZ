@@ -12,9 +12,12 @@ import {
   USER_RESEND_OTP_REQUEST,
   USER_RESEND_OTP_SUCCESS,
   USER_RESEND_OTP_FAIL,
-  USER_FORGOT_PASSWORD_REQUEST,
-  USER_FORGOT_PASSWORD_SUCCESS,
-  USER_FORGOT_PASSWORD_FAIL,
+  USER_CONFIRM_CHANGE_PASSWORD_FAIL,
+  USER_CONFIRM_CHANGE_PASSWORD_REQUEST,
+  USER_CONFIRM_CHANGE_PASSWORD_SUCCESS,
+  USER_SEND_CHANGE_PASSWORD_REQUEST,
+  USER_SEND_CHANGE_PASSWORD_FAIL,
+  USER_SEND_CHANGE_PASSWORD_SUCCESS,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -169,39 +172,56 @@ export const resendOTP = (userId) => async (dispatch) => {
   }
 };
 
-export const forgotPass = (email) => async (dispatch) => {
+export const sendChangepassword = (password, password2, token) => async (dispatch) => {
   try {
-    dispatch({
-      type: USER_FORGOT_PASSWORD_REQUEST,
-    });
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const { data } = await axios.post(
-      "/api/forgot-password/",  // Corrected URL with leading slash
-      { email },
-      config
-    );
-
-    dispatch({
-      type: USER_FORGOT_PASSWORD_SUCCESS,
-      payload: data,
-    });
-
-    return data;
+      dispatch({ type: USER_SEND_CHANGE_PASSWORD_REQUEST });
+      const config = {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      };
+      const { data } = await axios.post(
+          'http://127.0.0.1:8000/api/changepassword/',
+          { password, password2 },
+          config
+      );
+      dispatch({
+          type: USER_SEND_CHANGE_PASSWORD_SUCCESS,
+          payload: data,
+      });
   } catch (error) {
-    dispatch({
-      type: USER_FORGOT_PASSWORD_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-
-    return null;
+      dispatch({
+          type: USER_SEND_CHANGE_PASSWORD_FAIL,
+          payload: error.response && error.response.data.details
+              ? error.response.data.details
+              : error.message,
+      });
   }
 };
+
+export const confirmChangepassword = (password, password2, uid, token) => async (dispatch) => {
+  try {
+      dispatch({ type: USER_CONFIRM_CHANGE_PASSWORD_REQUEST });
+      const config = {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      };
+      const { data } = await axios.post(
+          `http://127.0.0.1:8000/api/reset-password/${uid}/${token}`,
+          { password, password2 },
+          config
+      );
+      dispatch({
+          type: USER_CONFIRM_CHANGE_PASSWORD_SUCCESS,
+          payload: data,
+      });
+  } catch (error) {
+      dispatch({
+          type: USER_CONFIRM_CHANGE_PASSWORD_FAIL,
+          payload: error.response && error.response.data.details
+              ? error.response.data.details
+              : error.message,
+      });
+  }
+}
