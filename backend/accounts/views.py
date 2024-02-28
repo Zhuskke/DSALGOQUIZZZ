@@ -17,7 +17,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from django.contrib.auth.models import User
-# from accounts.models import OTP
 from accounts.serializers import *
 from django.conf import settings
 from django.core.mail import send_mail
